@@ -22,6 +22,10 @@ public class Deck {
         deck.add(card);
     }
 
+    public Card get(int index) {
+        return deck.get(index);
+    }
+
     public void remove(int index) {
         deck.remove(index);
     }
@@ -55,7 +59,7 @@ public class Deck {
         this.deck = deck;
     }
 
-    public void shuffleDeck() {
+    public void shuffle() {
         Collections.shuffle(deck);
     }
 

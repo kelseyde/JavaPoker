@@ -53,6 +53,17 @@ public class DeckTest {
         deck.clear();
         deck.newDeck();
         assertEquals(52, deck.size());
+
+    }
+
+    @Test
+    public void testShuffle() {
+        Deck deck2 = new Deck();
+        deck.newDeck();
+        deck2.newDeck();
+        deck.shuffle();
+        assertFalse((deck.getDeck()).equals(deck2.getDeck()));
+        assertFalse((deck.get(0)).equals(deck2.get(0)));
     }
 
 }
