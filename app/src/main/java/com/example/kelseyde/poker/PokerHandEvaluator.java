@@ -42,6 +42,19 @@ public class PokerHandEvaluator {
         return suitCounter;
     }
 
+    public Card highCard(ArrayList<Card> hand) {
+        Integer highestValue = 0;
+        Card highestCard = null;
+        for (Card card : hand) {
+            Integer cardValue = card.getRank().getValue();
+            if (cardValue >= highestValue) {
+                highestValue = cardValue;
+                highestCard = card;
+            }
+        }
+        return highestCard;
+    }
+
     public ArrayList< ArrayList<Card> > howManyOfKind(int howMany, ArrayList<Card> hand) {
         ArrayList<ArrayList<Card>> kindCounter = new ArrayList<>();
         HashMap<Integer, Integer> rankCounter = setUpRankCounter();
@@ -165,7 +178,5 @@ public class PokerHandEvaluator {
         }
         return fullHouse;
     }
-
-    
 
 }
