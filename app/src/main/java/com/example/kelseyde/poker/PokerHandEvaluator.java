@@ -356,5 +356,4 @@ public class PokerHandEvaluator {
         return winningHand;
     }
 
-
 }

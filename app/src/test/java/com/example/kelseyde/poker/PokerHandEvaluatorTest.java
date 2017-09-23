@@ -44,7 +44,6 @@ public class PokerHandEvaluatorTest {
     @Test
     public void testHighCard() {
         Collections.addAll(hand, card1, card2, card3, card4, card5);
-        System.out.println("\\U2665");
         assertEquals(card5, evaluator.highCard(hand));
     }
 
