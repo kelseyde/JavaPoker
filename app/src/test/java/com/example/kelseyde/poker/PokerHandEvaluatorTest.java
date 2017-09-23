@@ -144,5 +144,37 @@ public class PokerHandEvaluatorTest {
         assertEquals(5, evaluator.fullHouse(hand).size());
     }
 
+    @Test
+    public void testNoStraight() {
+        Collections.addAll(hand, card1, card2, card3, card4, card5, card6, card7);
+        assertEquals(0, evaluator.straight(hand).size());
+    }
+
+    @Test
+    public void testStraight() {
+        Collections.addAll(hand, new Card(SuitType.CLUBS, RankType.FOUR), new Card(SuitType.CLUBS,
+                RankType.FIVE), new Card(SuitType.SPADES, RankType.SIX), new Card(SuitType.HEARTS,
+                RankType.SEVEN), new Card(SuitType.DIAMONDS, RankType.EIGHT));
+        assertEquals(5, evaluator.straight(hand).size());
+    }
+
+    @Test
+    public void testStraightExcludesDuplicates() {
+        Collections.addAll(hand, new Card(SuitType.CLUBS, RankType.FOUR), new Card(SuitType.CLUBS,
+                RankType.FIVE), new Card(SuitType.SPADES, RankType.SIX), new Card(SuitType.HEARTS,
+                RankType.SEVEN), new Card(SuitType.DIAMONDS, RankType.EIGHT), new Card(SuitType.CLUBS,
+                RankType.EIGHT));
+        assertEquals(5, evaluator.straight(hand).size());
+    }
+
+    @Test
+    public void testStraightWithLowAce() {
+        Collections.addAll(hand, new Card(SuitType.DIAMONDS, RankType.ACE), new Card(SuitType.CLUBS,
+                RankType.TWO), new Card(SuitType.CLUBS, RankType.THREE), new Card(SuitType.SPADES,
+                RankType.FOUR), new Card(SuitType.HEARTS, RankType.FIVE));
+        assertEquals(5, evaluator.straight(hand).size());
+    }
+
+
 
 }

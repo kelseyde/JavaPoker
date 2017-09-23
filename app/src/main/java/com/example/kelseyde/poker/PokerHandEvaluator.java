@@ -1,5 +1,6 @@
 package com.example.kelseyde.poker;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -122,7 +123,7 @@ public class PokerHandEvaluator {
         ArrayList<Card> royalFlush = new ArrayList<>();
 
         //exit early if no flush...
-        if (flush(hand).size() == 0) return royalFlush;
+        if (flush(hand).isEmpty()) return royalFlush;
 
         //...increment royalRankCounter to check how many of each rank there are...
         HashMap<RankType, Integer> royalRankCounter = setUpRoyalRankCounter();
@@ -154,7 +155,7 @@ public class PokerHandEvaluator {
     public ArrayList<Card> fullHouse(ArrayList<Card> hand) {
         ArrayList<Card> fullHouse = new ArrayList<>();
 
-        //set up a copy of hand arraylist, so that elements can be removed w/o removing from hand
+        //set up a copy of hand ArrayList, so that elements can be removed w/o removing from hand
         ArrayList<Card> workingHand = new ArrayList<>();
         for (Card card : hand) {
             workingHand.add(card);
@@ -170,7 +171,7 @@ public class PokerHandEvaluator {
                 ArrayList<ArrayList<Card>> twoOfAKinds = howManyOfKind(2, workingHand);
                 //if there is a two-of-a-kind
                 if (!(twoOfAKinds.get(0).isEmpty())) {
-                    //add two-of-a-kind to fullHouse
+                    //add two-of-a-kind to fullHouse, along with three-of-a-kind, making full house
                     fullHouse.addAll(threeofAKind);
                     fullHouse.addAll(twoOfAKinds.get(0));
                 }
@@ -178,5 +179,75 @@ public class PokerHandEvaluator {
         }
         return fullHouse;
     }
+
+    public ArrayList<Card> straight(ArrayList<Card> hand) {
+        ArrayList<Card> straight = new ArrayList<>();
+        HashMap<Integer, Integer> rankCounter = setUpRankCounter();
+
+        //increment rankCounter to determine how many of each kind there are...
+        for (Card card : hand) {
+            Integer keyOfCard = card.getRank().getValue();
+            Integer currentValue = rankCounter.get(keyOfCard);
+            rankCounter.put(keyOfCard, (currentValue + 1));
+        }
+
+        //if there are cards of five consecutive ranks...
+        for (int i=1; i < 10; i++) {
+            if ((rankCounter.get(i) > 0) &&
+                    (rankCounter.get(i + 1) > 0) &&
+                    (rankCounter.get(i + 2) > 0) &&
+                    (rankCounter.get(i + 3) > 0) &&
+                    (rankCounter.get(i + 4) > 0)) {
+
+                //...and if there are, add each one into straight ArrayList...
+                for (Card card : hand) {
+                    if (((card.getRank().getValue() == i) ||
+                            (card.getRank().getValue() == i + 1) ||
+                            (card.getRank().getValue() == i + 2) ||
+                            (card.getRank().getValue() == i + 3) ||
+                            (card.getRank().getValue() == i + 4)) &&
+                            !(isDuplicateRank(card, straight))) {
+                        straight.add(card);
+                    }
+                }
+            }
+        }
+
+        //separate if-statement for low-ace straight
+        if ((rankCounter.get(13) > 0) &&
+                (rankCounter.get(1) > 0) &&
+                (rankCounter.get(2) > 0) &&
+                (rankCounter.get(3) > 0) &&
+                (rankCounter.get(4) > 0)) {
+            for (Card card : hand) {
+                if (((card.getRank().getValue() == 13) ||
+                        (card.getRank().getValue() == 1) ||
+                        (card.getRank().getValue() == 2) ||
+                        (card.getRank().getValue() == 3) ||
+                        (card.getRank().getValue() == 4)) &&
+                        !(isDuplicateRank(card, straight))) {
+                    straight.add(card);
+                }
+            }
+        }
+
+        return straight;
+    }
+
+    public boolean isDuplicateRank(Card card, ArrayList<Card> hand) {
+        boolean isDuplicate = false;
+        for (Card handCard : hand) {
+            if (card.getRank().equals(handCard.getRank())) {
+                isDuplicate = true;
+            }
+        }
+        return isDuplicate;
+    }
+
+
+
+
+
+
 
 }
