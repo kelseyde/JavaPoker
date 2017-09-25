@@ -7,4 +7,6 @@ public interface Dealing {
 
     void deal(int cardsPerPlayer, ArrayList<Player> players);
 
+    void dealTable(int numberOfCards, ArrayList<Card> table);
+
 }

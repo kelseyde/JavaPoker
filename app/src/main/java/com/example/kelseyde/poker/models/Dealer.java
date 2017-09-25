@@ -44,4 +44,11 @@ public class Dealer implements Dealing {
         }
     }
 
+    public void dealTable(int numberOfCards, ArrayList<Card> table) {
+        for (int i = 0; i < numberOfCards; i++) {
+            Card card = drawCard(0);
+            table.add(card);
+        }
+    }
+
 }

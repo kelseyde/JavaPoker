@@ -7,7 +7,6 @@ import static com.example.kelseyde.poker.models.SuitType.*;
 
 public class CardDisplayer {
 
-
     public String setColour(Card card) {
         SuitType suit = card.getSuit();
         String colour = null;
@@ -53,7 +52,6 @@ public class CardDisplayer {
         return rankIcon;
     }
 
-
     public String icon(Card card) {
         String colour = setColour(card);
         String rankIcon = setRankIcon(card);
@@ -62,7 +60,6 @@ public class CardDisplayer {
         String icon = (colour + rankIcon + suitIcon + reset);
         return icon;
     }
-
 
     public static String displayHand(ArrayList<Card> hand) {
         String display = "[ ";

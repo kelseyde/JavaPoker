@@ -52,4 +52,15 @@ public class PlayerTest {
         assertEquals(0, player.getHand().size());
     }
 
+//    @Test
+//    public void testGetChips() {
+//        assertEquals(100, player.getChips());
+//    }
+//
+//    @Test
+//    public void testSetChips() {
+//        player.setChips(101);
+//        assertEquals(101, player.getChips());
+//    }
+
 }

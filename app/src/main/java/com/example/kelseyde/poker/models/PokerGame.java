@@ -8,6 +8,7 @@ public class PokerGame {
     private ArrayList<Player> players;
     private Dealing dealer;
     private Player currentPlayer;
+    private ArrayList<Card> table;
     private HandEvaluating evaluator;
     private Logger logger;
     private int pot;
@@ -16,13 +17,13 @@ public class PokerGame {
         this.players = new ArrayList<Player>();
         this.dealer = new Dealer();
         this.currentPlayer = null;
+        this.table = new ArrayList<Card>();
         this.evaluator = new PokerHandEvaluator();
         this.logger = new ConsoleLogger();
         this.pot = 0;
     }
 
     //methods
-
 
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -58,5 +59,21 @@ public class PokerGame {
 
     public void setPot(int pot) {
         this.pot = pot;
+    }
+
+    public void addToPot(int bet) {
+        this.pot = getPot() + bet;
+    }
+
+    public Dealing getDealer() {
+        return dealer;
+    }
+
+    public ArrayList<Card> getTable() {
+        return table;
+    }
+
+    public void setTable(ArrayList<Card> table) {
+        this.table = table;
     }
 }

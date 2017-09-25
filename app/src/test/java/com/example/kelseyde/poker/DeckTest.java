@@ -1,6 +1,7 @@
 package com.example.kelseyde.poker;
 
 import com.example.kelseyde.poker.models.Card;
+import com.example.kelseyde.poker.models.CardDisplayer;
 import com.example.kelseyde.poker.models.Deck;
 import com.example.kelseyde.poker.models.RankType;
 import com.example.kelseyde.poker.models.SuitType;
@@ -27,28 +28,28 @@ public class DeckTest {
     }
 
     @Test
-    public void testDeckStartsEmpty() {
-        assertEquals(0, deck.size());
+    public void testDeckStartsAt52() {
+        assertEquals(52, deck.size());
     }
 
     @Test
     public void testCanAddCard() {
         deck.add(card1);
-        assertEquals(card1, deck.getDeck().get(0));
+        assertEquals(card1, deck.getDeck().get(52));
     }
 
     @Test
     public void testCanRemoveCard() {
         deck.add(card1);
-        assertEquals(1, deck.size());
+        assertEquals(53, deck.size());
         deck.remove(0);
-        assertEquals(0, deck.size());
+        assertEquals(52, deck.size());
     }
 
     @Test
     public void testClearDeck() {
         deck.add(card1);
-        assertEquals(1, deck.size());
+        assertEquals(53, deck.size());
         deck.clear();
         assertEquals(0, deck.size());
     }
