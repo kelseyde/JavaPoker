@@ -1,4 +1,4 @@
-package com.example.kelseyde.poker;
+package com.example.kelseyde.poker.models;
 
 import java.util.ArrayList;
 

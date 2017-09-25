@@ -1,7 +1,8 @@
-package com.example.kelseyde.poker;
+package com.example.kelseyde.poker.models;
 
 
-import java.lang.reflect.Array;
+import com.example.kelseyde.poker.models.Card;
+
 import java.util.ArrayList;
 
 public class Player {

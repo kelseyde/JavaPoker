@@ -1,10 +1,9 @@
-package com.example.kelseyde.poker;
+package com.example.kelseyde.poker.models;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PokerHandEvaluator {
+public class PokerHandEvaluator implements HandEvaluating {
 
     //setup methods
 
@@ -323,7 +322,20 @@ public class PokerHandEvaluator {
         } else return 1;
     }
 
-    //master method for comparing hands
+    //methods for comparing hands and determining winner
+
+    public ArrayList<Card> getHandWithHighCard(ArrayList<ArrayList<Card>> hands) {
+        int winningScore = 0;
+        ArrayList<Card> winningHand = null;
+        for (ArrayList<Card> hand : hands) {
+            int score = highCard(hand).getRank().getValue();
+            if (score > winningScore) {
+                winningScore = score;
+                winningHand = hand;
+            }
+        }
+        return winningHand;
+    }
 
     public ArrayList<Card> getWinningHand(ArrayList<ArrayList<Card>> hands) {
         int winningScore = 0;
@@ -341,6 +353,13 @@ public class PokerHandEvaluator {
             int score = evaluateHand(hands.get(i));
             if (score < winningScore) { hands.remove(i); }
         }
+
+        //if there is a draw, determine which hand the players have and find highest card
+        if (hands.size() > 1) {
+            switch (winningScore) {
+                case 10:
+            }
+        }
         //if there is a draw, compare highest card
         if (hands.size() > 1) {
             winningScore = 0;
@@ -357,3 +376,4 @@ public class PokerHandEvaluator {
     }
 
 }
+

@@ -1,5 +1,10 @@
 package com.example.kelseyde.poker;
 
+import com.example.kelseyde.poker.models.Card;
+import com.example.kelseyde.poker.models.Deck;
+import com.example.kelseyde.poker.models.RankType;
+import com.example.kelseyde.poker.models.SuitType;
+
 import org.junit.Before;
 import org.junit.Test;
 

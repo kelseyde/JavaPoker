@@ -1,5 +1,10 @@
 package com.example.kelseyde.poker;
 
+import com.example.kelseyde.poker.models.Card;
+import com.example.kelseyde.poker.models.PokerHandEvaluator;
+import com.example.kelseyde.poker.models.RankType;
+import com.example.kelseyde.poker.models.SuitType;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +49,7 @@ public class PokerHandEvaluatorTest {
     @Test
     public void testHighCard() {
         Collections.addAll(hand, card1, card2, card3, card4, card5);
+        System.out.println("[\033[0;31m K\u2665, 5\u2666, \033[0m A\u2660, \033[0;31m Q\u2663, 3\u2660 \033[0m] ");
         assertEquals(card5, evaluator.highCard(hand));
     }
 
@@ -270,7 +276,7 @@ public class PokerHandEvaluatorTest {
     }
 
     @Test
-    public void testGetWinningHandHighCard() {
+    public void testGetHandWithHighCard() {
         ArrayList<Card> hand2 = new ArrayList<Card>();
         hand.add(new Card(SuitType.CLUBS, RankType.FOUR));
         hand2.add(new Card(SuitType.DIAMONDS, RankType.NINE));
@@ -278,6 +284,17 @@ public class PokerHandEvaluatorTest {
         hands.add(hand);
         hands.add(hand2);
         assertEquals(hand2, evaluator.getWinningHand(hands));
+    }
+
+    @Test
+    public void testGetWinningHandHighCard() {
+        ArrayList<Card> hand2 = new ArrayList<Card>();
+        hand.add(new Card(SuitType.CLUBS, RankType.FOUR));
+        hand2.add(new Card(SuitType.DIAMONDS, RankType.NINE));
+        ArrayList<ArrayList<Card>> hands = new ArrayList<>();
+        hands.add(hand);
+        hands.add(hand2);
+        assertEquals(hand2, evaluator.getHandWithHighCard(hands));
     }
 
 

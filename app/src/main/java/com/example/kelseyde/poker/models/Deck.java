@@ -1,9 +1,8 @@
-package com.example.kelseyde.poker;
+package com.example.kelseyde.poker.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.List;
 
 
 public class Deck {

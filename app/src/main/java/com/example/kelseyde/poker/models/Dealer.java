@@ -1,9 +1,9 @@
-package com.example.kelseyde.poker;
+package com.example.kelseyde.poker.models;
 
 
 import java.util.ArrayList;
 
-public class Dealer {
+public class Dealer implements Dealing {
 
     Deck deck;
 
