@@ -29,4 +29,7 @@ public class Card {
         this.rank = rank;
     }
 
+    public String icon() {
+        return displayer.icon(this);
+    }
 }

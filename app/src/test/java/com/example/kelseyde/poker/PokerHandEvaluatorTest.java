@@ -1,6 +1,7 @@
 package com.example.kelseyde.poker;
 
 import com.example.kelseyde.poker.models.Card;
+import com.example.kelseyde.poker.models.CardDisplayer;
 import com.example.kelseyde.poker.models.PokerHandEvaluator;
 import com.example.kelseyde.poker.models.RankType;
 import com.example.kelseyde.poker.models.SuitType;
@@ -49,7 +50,6 @@ public class PokerHandEvaluatorTest {
     @Test
     public void testHighCard() {
         Collections.addAll(hand, card1, card2, card3, card4, card5);
-        System.out.println("[\033[0;31m K\u2665, 5\u2666, \033[0m A\u2660, \033[0;31m Q\u2663, 3\u2660 \033[0m] ");
         assertEquals(card5, evaluator.highCard(hand));
     }
 
