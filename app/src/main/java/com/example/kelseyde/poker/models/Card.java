@@ -5,10 +5,12 @@ public class Card {
 
     private SuitType suit;
     private RankType rank;
+    private CardDisplayer displayer;
 
     public Card(SuitType suit, RankType rank) {
         this.suit = suit;
         this.rank = rank;
+        this.displayer = new CardDisplayer();
     }
 
     public SuitType getSuit() {
