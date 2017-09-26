@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class PokerRunner {
 
-        PokerGame game = new PokerGame();
-        Scanner sc = new Scanner(System.in);
-        Logger lg = new ConsoleLogger();
-        CardDisplayer cd = new CardDisplayer();
-        PokerHandEvaluator evaluator = new PokerHandEvaluator();
+    PokerGame game = new PokerGame();
+    Scanner sc = new Scanner(System.in);
+    Logger lg = new ConsoleLogger();
+    CardDisplayer cd = new CardDisplayer();
+    PokerHandEvaluator evaluator = new PokerHandEvaluator();
 
     public String printHand(ArrayList<Card> hand) {
         String result = null;
@@ -31,6 +31,7 @@ public class PokerRunner {
 
 
     public void introduction() {
+        lg.clear();
         lg.log("Welcome to Command Line Poker! Today we will be playing two-player \n" +
                 "Texas Hold'em. Player 1, please enter your name.");
         String playerName = sc.nextLine();
@@ -41,25 +42,29 @@ public class PokerRunner {
         playerName = sc.nextLine();
         Player player2 = new Player(playerName);
         game.addPlayer(player2);
-
+        lg.log("Thank you.");
         game.setCurrentPlayer(player1);
     }
 
     public void dealHoleCards() {
+        game.getDealer().getDeck().newDeck();
+        game.getDealer().getDeck().shuffle();
         game.getDealer().deal(2, game.getPlayers());
-
-        lg.log("Thank you. The dealer will now deal each player two hole cards.\n" +
+        lg.clear();
+        lg.log("The dealer will now deal each player two hole cards.\n" +
                 game.getCurrentPlayer().getName() + ", hit enter to view your cards.");
         sc.nextLine();
         lg.log("YOUR HAND: " + cd.displayHand(game.getCurrentPlayer().getHand()));
         lg.log("\nHit enter to continue.");
         sc.nextLine();
+        lg.clear();
         game.nextPlayer();
         lg.log(game.getCurrentPlayer().getName() + ", hit enter to view your cards.");
         sc.nextLine();
         lg.log("YOUR HAND: " + cd.displayHand(game.getCurrentPlayer().getHand()));
         lg.log("\nHit enter to continue.");
         sc.nextLine();
+        lg.clear();
     }
 
     public void roundOfBetting() {
@@ -147,16 +152,18 @@ public class PokerRunner {
         lg.log(winner.getName()+" wins! \n\n" +
                 "Would you like to play again?\n" +
                 "'Y' - Yes, 'N' - No");
-        String choice = sc.nextLine();
-        if (choice.equals("Y")) {
-            play();
-        } else if (choice.equals("N")) {
+        String choice = sc.nextLine().toLowerCase();
+        if (choice.equals("y")) {
+            game.clearTable();
+            game.clearHands();
+        } else if (choice.equals("n")) {
             lg.log("Thank you for playing!");
             System.exit(1);
         }
     }
 
     public void play() {
+        boolean newRound = false;
         introduction();
         dealHoleCards();
         roundOfBetting();
@@ -167,6 +174,26 @@ public class PokerRunner {
         dealRiver();
         roundOfBetting();
         showdown();
+        if (newRound = true) {
+            newRound();
+        }
+    }
+
+    public void newRound() {
+        boolean newRound = false;
+        lg.log("Welcome back!");
+        dealHoleCards();
+        roundOfBetting();
+        dealFlop();
+        roundOfBetting();
+        dealTurn();
+        roundOfBetting();
+        dealRiver();
+        roundOfBetting();
+        showdown();
+        if (newRound = true) {
+            newRound();
+        }
     }
 
 

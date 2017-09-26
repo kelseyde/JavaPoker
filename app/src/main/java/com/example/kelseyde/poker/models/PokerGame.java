@@ -6,11 +6,10 @@ import java.util.ArrayList;
 public class PokerGame {
 
     private ArrayList<Player> players;
-    private Dealing dealer;
+    private Dealer dealer;
     private Player currentPlayer;
     private ArrayList<Card> table;
     private PokerHandEvaluator evaluator;
-    private Logger logger;
     private int pot;
 
     public PokerGame() {
@@ -19,7 +18,6 @@ public class PokerGame {
         this.currentPlayer = null;
         this.table = new ArrayList<Card>();
         this.evaluator = new PokerHandEvaluator();
-        this.logger = new ConsoleLogger();
         this.pot = 0;
     }
 
@@ -65,12 +63,22 @@ public class PokerGame {
         this.pot = getPot() + bet;
     }
 
-    public Dealing getDealer() {
+    public Dealer getDealer() {
         return dealer;
     }
 
     public ArrayList<Card> getTable() {
         return table;
+    }
+
+    public void clearTable() {
+        table.clear();
+    }
+
+    public void clearHands() {
+        for (Player player : players) {
+            player.getHand().clear();
+        }
     }
 
     public ArrayList<ArrayList<Card>> getPlayerHands() {

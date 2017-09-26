@@ -346,6 +346,7 @@ public class PokerHandEvaluator implements HandEvaluating {
             int score = evaluateHand(hand);
             if (score > winningScore) {
                 winningScore = score;
+                winningHand = hand;
             }
         }
         //eliminate any hands below winning score
