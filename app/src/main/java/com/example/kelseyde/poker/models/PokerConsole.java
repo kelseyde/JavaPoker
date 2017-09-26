@@ -12,6 +12,10 @@ public class PokerConsole {
     CardDisplayer cd = new CardDisplayer();
     PokerHandEvaluator evaluator = new PokerHandEvaluator();
 
+    int bet1 = 0;
+    int bet2 = 0;
+    int bet3 = 0;
+
     Card ace1 = new Card(SuitType.CLUBS, RankType.ACE);
     Card ace2 = new Card(SuitType.DIAMONDS, RankType.ACE);
     Card ace3 = new Card(SuitType.SPADES, RankType.ACE);
@@ -34,6 +38,21 @@ public class PokerConsole {
         return result;
     }
 
+    public static boolean isInt(String str) {
+        try {
+            int i = Integer.parseInt(str);
+        } catch (NumberFormatException nfp) {
+            return false;
+        }
+        return true;
+    }
+
+    public void showCards() {
+        lg.log("YOUR HAND: "+cd.displayHand(game.getCurrentPlayer().getHand())+
+                "\nHit enter to continue.");
+        sc.nextLine();
+        lg.clear();
+    }
 
     public void introduction() {
         lg.clear();
@@ -58,51 +77,77 @@ public class PokerConsole {
         game.getDealer().getDeck().newDeck();
         game.getDealer().getDeck().shuffle();
         game.getDealer().deal(2, game.getPlayers());
-        lg.log("The dealer will now deal each player two hole cards.\n"+
-                game.getCurrentPlayer().getName()+", hit enter to view your cards.");
+        lg.log("The dealer will now deal each player two hole cards.\n");
+        lg.log(game.getCurrentPlayer().getName()+", hit enter to view your cards.");
         sc.nextLine();
-        lg.log("YOUR HAND: "+cd.displayHand(game.getCurrentPlayer().getHand())+
-                "\nHit enter to continue.");
-        sc.nextLine();
-        lg.clear();
+        showCards();
         game.nextPlayer();
         lg.log(game.getCurrentPlayer().getName()+", hit enter to view your cards.");
         sc.nextLine();
-        lg.log("YOUR HAND: "+cd.displayHand(game.getCurrentPlayer().getHand())+
-                "\nHit enter to continue.");
-        sc.nextLine();
+        showCards();
+        game.nextPlayer();
         lg.clear();
+        bettingRound();
     }
 
-    public void roundOfBetting() {
-        //player 1 bets or checks.
+    public void firstBet() {
         lg.log(game.getCurrentPlayer().getName() + ", you now have the chance to bet.\n" +
-                "Enter how much you'd like to bet (enter 0 if you'd like to check).\n" +
+                "Enter how much you'd like to bet.\nEnter 0 to check.\nEnter 'view' to view cards.\n" +
                 "YOUR CHIPS: " + game.getCurrentPlayer().getChips());
-        Integer bet1 = sc.nextInt();
-        game.getCurrentPlayer().bet(bet1);
-        game.nextPlayer();
-        //player 2 calls, raises or folds
-        lg.log("\n"+game.getCurrentPlayer().getName() + ", you must either call " + bet1 + ", raise or fold.\n" +
-                "Enter how much you'd like to bet (enter below " + bet1 + " to fold).\n" +
+        String choice = sc.nextLine().toLowerCase();
+        if (choice.equals("view")) {
+            showCards();
+            firstBet();
+        } else if (isInt(choice)) {
+            bet1 = Integer.parseInt(choice);
+            game.getCurrentPlayer().bet(bet1);
+            game.nextPlayer();
+        } else {
+            lg.log("Incorrect input!\n");
+            firstBet();
+        }
+    }
+
+    public void secondBet() {
+        lg.log(game.getCurrentPlayer().getName() + ", you must either call "+bet1+", raise or fold.\n" +
+                "Enter how much you'd like to bet.\nEnter 0 to check.\nEnter 'view' to view cards.\n" +
                 "YOUR CHIPS: " + game.getCurrentPlayer().getChips());
-        Integer bet2 = sc.nextInt();
-        game.getCurrentPlayer().bet(bet2);
+        String choice = sc.nextLine().toLowerCase();
+        if (choice.equals("view")) {
+            showCards();
+            firstBet();
+        } else if (isInt(choice)) {
+            bet2 = Integer.parseInt(choice);
+            game.getCurrentPlayer().bet(bet2);
+        } else {
+            lg.log("Incorrect input!");
+            secondBet();
+        }
         game.nextPlayer();
+    }
+
+    public void thirdBet() {
         if (bet2 > bet1) {
-            lg.log("\n"+game.getCurrentPlayer().getName() + ", you must either call " + bet2 + " or fold.\n" +
-                    "Enter how much you'd like to bet (enter above or below " + bet2 + " to fold).\n" +
+            lg.log("\n" + game.getCurrentPlayer().getName() + ", you must either call " + bet2 + " or fold.\n" +
+                    "Enter how much you'd like to bet (enter above or below " + bet2 + " to fold).\n"+
+                    "Enter 'view' to view your cards.\n"+
                     "YOUR CHIPS: " + game.getCurrentPlayer().getChips());
-            Integer bet3 = sc.nextInt();
-            game.getCurrentPlayer().bet(bet3 - bet1);
-            if ((bet3 > bet2) || (bet3 < bet2)) {
-                lg.log("\n"+game.getCurrentPlayer().getName() + " folds.\n");
-                game.nextPlayer();
-                lg.log(game.getCurrentPlayer().getName() + " wins!");
-                System.exit(1);
-            } else if (bet2 == bet3) {
-                lg.log("\n"+game.getCurrentPlayer().getName() + " has called! On to the next round.");
-                lg.log("\n");
+            String choice = sc.nextLine().toLowerCase();
+            if (choice.equals("view")) {
+                showCards();
+                thirdBet();
+            } else if (isInt(choice)) {
+                bet3 = Integer.parseInt(choice);
+                game.getCurrentPlayer().bet(bet3 - bet1);
+                if ((bet3 > bet2) || (bet3 < bet2)) {
+                    lg.log("\n" + game.getCurrentPlayer().getName() + " folds.\n");
+                    game.nextPlayer();
+                    lg.log(game.getCurrentPlayer().getName() + " wins!");
+                    System.exit(1);
+                } else if (bet2 == bet3) {
+                    lg.log("\n" + game.getCurrentPlayer().getName() + " has called! On to the next round.");
+                    lg.log("\n");
+                }
             }
         } else if (bet2 == bet1) {
             game.nextPlayer();
@@ -116,6 +161,12 @@ public class PokerConsole {
         }
     }
 
+    public void bettingRound() {
+        firstBet();
+        secondBet();
+        thirdBet();
+    }
+
     public void dealFlop() {
         lg.log("The dealer will now deal the FLOP.\n");
         lg.pause(2);
@@ -124,7 +175,7 @@ public class PokerConsole {
         game.getDealer().dealTable(3, game.getTable());
         lg.log("THE FLOP: " + cd.displayHand(game.getTable()) + "\n");
         lg.pause(1);
-        sc.nextLine();
+        bettingRound();
     }
 
     public void dealTurn() {
@@ -135,7 +186,7 @@ public class PokerConsole {
         game.getDealer().dealTable(1, game.getTable());
         lg.log("THE TURN: " + cd.displayHand(game.getTable()) + "\n");
         lg.pause(1);
-        sc.nextLine();
+        bettingRound();
     }
 
     public void dealRiver() {
@@ -146,7 +197,7 @@ public class PokerConsole {
         game.getDealer().dealTable(1, game.getTable());
         lg.log("THE RIVER: "+cd.displayHand(game.getTable())+"\n");
         lg.pause(1);
-        sc.nextLine();
+        bettingRound();
     }
 
     public void showdown() {
@@ -184,13 +235,9 @@ public class PokerConsole {
         boolean newRound = false;
         introduction();
         dealHoleCards();
-        roundOfBetting();
         dealFlop();
-        roundOfBetting();
         dealTurn();
-        roundOfBetting();
         dealRiver();
-        roundOfBetting();
         showdown();
         if (newRound = true) {
             newRound();
@@ -202,13 +249,9 @@ public class PokerConsole {
         lg.clear();
         lg.log("Welcome back!");
         dealHoleCards();
-        roundOfBetting();
         dealFlop();
-        roundOfBetting();
         dealTurn();
-        roundOfBetting();
         dealRiver();
-        roundOfBetting();
         showdown();
         if (newRound = true) {
             newRound();

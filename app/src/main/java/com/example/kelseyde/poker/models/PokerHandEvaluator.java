@@ -194,16 +194,16 @@ public class PokerHandEvaluator implements HandEvaluating {
 
         //gets ArrayList of three-of-a-kind combinations
         ArrayList<ArrayList<Card>> threeOfAKinds = howManyOfKind(3, workingHand);
-        for (ArrayList<Card> threeofAKind : threeOfAKinds) {
-            if (!(threeofAKind.isEmpty())) {
+        for (ArrayList<Card> threeOfAKind : threeOfAKinds) {
+            if (!(threeOfAKind.isEmpty())) {
                 //if there is a three-of-a-kind, remove it from workingHand
-                workingHand.removeAll(threeofAKind);
+                workingHand.removeAll(threeOfAKind);
                 //and check workingHand for two-of-a-kinds
                 ArrayList<ArrayList<Card>> twoOfAKinds = howManyOfKind(2, workingHand);
                 //if there is a two-of-a-kind
                 if (!(twoOfAKinds.isEmpty())) {
                     //add two-of-a-kind to fullHouse, along with three-of-a-kind, making full house
-                    fullHouse.addAll(threeofAKind);
+                    fullHouse.addAll(threeOfAKind);
                     fullHouse.addAll(twoOfAKinds.get(0));
                 }
             }
