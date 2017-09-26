@@ -130,18 +130,27 @@ public class PokerGameTest {
     }
 
     @Test
-    public void testGetWinnerNoDraw() {
-        Collections.addAll(player1.getHand(), new Card(SuitType.DIAMONDS, RankType.QUEEN), new Card(SuitType.DIAMONDS,
-                RankType.TEN));
-        Collections.addAll(player2.getHand(), new Card(SuitType.CLUBS, RankType.KING), new Card(SuitType.DIAMONDS,
-                RankType.SIX));
+    public void testClearHands() {
+        Collections.addAll(player1.getHand(), new Card(SuitType.CLUBS, RankType.TEN), new Card(SuitType.CLUBS,
+                RankType.JACK), new Card(SuitType.CLUBS, RankType.QUEEN), new Card(SuitType.CLUBS,
+                RankType.KING), new Card(SuitType.CLUBS, RankType.ACE));
+        Collections.addAll(player2.getHand(), new Card(SuitType.CLUBS, RankType.FIVE), new Card(SuitType.DIAMONDS,
+                RankType.FIVE), new Card(SuitType.HEARTS, RankType.FOUR), new Card(SuitType.CLUBS,
+                RankType.JACK), new Card(SuitType.SPADES, RankType.FIVE));
         game.addPlayer(player1);
         game.addPlayer(player2);
-        Collections.addAll(game.getTable(), new Card(SuitType.DIAMONDS, RankType.NINE), new Card(SuitType.SPADES,
-                RankType.SEVEN), new Card(SuitType.SPADES, RankType.FOUR), new Card(SuitType.CLUBS,
-                RankType.QUEEN), new Card(SuitType.CLUBS, RankType.SEVEN));
-        assertEquals(player1, game.getWinner());
+        game.clearHands();
+        assertEquals(0, player1.getHand().size());
+        assertEquals(0, player2.getHand().size());
     }
 
+    @Test
+    public void testClearTable() {
+        Card card1 = new Card(SuitType.CLUBS, RankType.EIGHT);
+        game.getTable().add(card1);
+        assertEquals(1, game.getTable().size());
+        game.clearTable();
+        assertEquals(0, game.getTable().size());
+    }
 
 }

@@ -3,10 +3,8 @@ package com.example.kelseyde.poker.models;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static android.R.attr.delay;
 
-
-public class PokerRunner {
+public class PokerConsole {
 
     PokerGame game = new PokerGame();
     Scanner sc = new Scanner(System.in);
@@ -77,13 +75,14 @@ public class PokerRunner {
     }
 
     public void roundOfBetting() {
+        //player 1 bets or checks.
         lg.log(game.getCurrentPlayer().getName() + ", you now have the chance to bet.\n" +
                 "Enter how much you'd like to bet (enter 0 if you'd like to check).\n" +
                 "YOUR CHIPS: " + game.getCurrentPlayer().getChips());
         Integer bet1 = sc.nextInt();
         game.getCurrentPlayer().bet(bet1);
         game.nextPlayer();
-
+        //player 2 calls, raises or folds
         lg.log("\n"+game.getCurrentPlayer().getName() + ", you must either call " + bet1 + ", raise or fold.\n" +
                 "Enter how much you'd like to bet (enter below " + bet1 + " to fold).\n" +
                 "YOUR CHIPS: " + game.getCurrentPlayer().getChips());
@@ -217,8 +216,8 @@ public class PokerRunner {
     }
 
     public static void main(String[] args) {
-        PokerRunner runner = new PokerRunner();
-        runner.play();
+        PokerConsole console = new PokerConsole();
+        console.play();
     }
 
 
