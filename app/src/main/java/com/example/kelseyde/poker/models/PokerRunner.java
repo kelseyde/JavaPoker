@@ -12,6 +12,11 @@ public class PokerRunner {
     CardDisplayer cd = new CardDisplayer();
     PokerHandEvaluator evaluator = new PokerHandEvaluator();
 
+    Card ace1 = new Card(SuitType.CLUBS, RankType.ACE);
+    Card ace2 = new Card(SuitType.DIAMONDS, RankType.ACE);
+    Card ace3 = new Card(SuitType.SPADES, RankType.ACE);
+    Card ace4 = new Card(SuitType.HEARTS, RankType.ACE);
+
     public String printHand(ArrayList<Card> hand) {
         String result = null;
         switch (evaluator.evaluateHand(hand)) {
@@ -32,8 +37,11 @@ public class PokerRunner {
 
     public void introduction() {
         lg.clear();
-        lg.log("Welcome to Command Line Poker! Today we will be playing two-player \n" +
-                "Texas Hold'em. Player 1, please enter your name.");
+        lg.log(cd.displayCard(ace1)+" "+cd.displayCard(ace2)+" "+"\033[1;30m"+
+                "Welcome to Command Line Poker!"+
+                "\033[0m"+" "+cd.displayCard(ace3)+" "+cd.displayCard(ace4)+"\n" +
+                "Today we will be playing two-player Texas Hold'em. \n" +
+                "Player 1, please enter your name.");
         String playerName = sc.nextLine();
         Player player1 = new Player(playerName);
         game.addPlayer(player1);
@@ -51,40 +59,40 @@ public class PokerRunner {
         game.getDealer().getDeck().shuffle();
         game.getDealer().deal(2, game.getPlayers());
         lg.clear();
-        lg.log("The dealer will now deal each player two hole cards.\n" +
-                game.getCurrentPlayer().getName() + ", hit enter to view your cards.");
+        lg.log("The dealer will now deal each player two hole cards.\n"+
+                game.getCurrentPlayer().getName()+", hit enter to view your cards.");
         sc.nextLine();
-        lg.log("YOUR HAND: " + cd.displayHand(game.getCurrentPlayer().getHand()));
-        lg.log("\nHit enter to continue.");
+        lg.log("YOUR HAND: "+cd.displayHand(game.getCurrentPlayer().getHand())+
+                "\nHit enter to continue.");
         sc.nextLine();
         lg.clear();
         game.nextPlayer();
-        lg.log(game.getCurrentPlayer().getName() + ", hit enter to view your cards.");
+        lg.log(game.getCurrentPlayer().getName()+", hit enter to view your cards.");
         sc.nextLine();
-        lg.log("YOUR HAND: " + cd.displayHand(game.getCurrentPlayer().getHand()));
-        lg.log("\nHit enter to continue.");
+        lg.log("YOUR HAND: "+cd.displayHand(game.getCurrentPlayer().getHand())+
+                "\nHit enter to continue.");
         sc.nextLine();
         lg.clear();
     }
 
     public void roundOfBetting() {
         lg.log(game.getCurrentPlayer().getName() + ", you now have the chance to bet.\n" +
-                "Enter how much you'd like to bet (enter 0 if you'd like to check).");
-        lg.log("YOUR CHIPS: " + game.getCurrentPlayer().getChips());
+                "Enter how much you'd like to bet (enter 0 if you'd like to check).\n" +
+                "YOUR CHIPS: " + game.getCurrentPlayer().getChips());
         Integer bet1 = sc.nextInt();
         game.getCurrentPlayer().bet(bet1);
         game.nextPlayer();
 
         lg.log(game.getCurrentPlayer().getName() + ", you must either call " + bet1 + ", raise or fold.\n" +
-                "Enter how much you'd like to bet (enter below " + bet1 + " to fold).");
-        lg.log("YOUR CHIPS: " + game.getCurrentPlayer().getChips());
+                "Enter how much you'd like to bet (enter below " + bet1 + " to fold).\n" +
+                "YOUR CHIPS: " + game.getCurrentPlayer().getChips());
         Integer bet2 = sc.nextInt();
         game.getCurrentPlayer().bet(bet2);
         game.nextPlayer();
         if (bet2 > bet1) {
             lg.log(game.getCurrentPlayer().getName() + ", you must either call " + bet2 + " or fold.\n" +
-                    "Enter how much you'd like to bet (enter above or below " + bet2 + " to fold).");
-            lg.log("YOUR CHIPS: " + game.getCurrentPlayer().getChips());
+                    "Enter how much you'd like to bet (enter above or below " + bet2 + " to fold).\n" +
+                    "YOUR CHIPS: " + game.getCurrentPlayer().getChips());
             Integer bet3 = sc.nextInt();
             game.getCurrentPlayer().bet(bet3 - bet1);
             if ((bet3 > bet2) || (bet3 < bet2)) {
@@ -98,8 +106,7 @@ public class PokerRunner {
             }
         } else if (bet2 == bet1) {
             game.nextPlayer();
-            lg.log(game.getCurrentPlayer().getName() + " has called! On to the next round...");
-            lg.log("\n");
+            lg.log(game.getCurrentPlayer().getName() + " has called! On to the next round...\n");
         } else {
             game.nextPlayer();
             lg.log(game.getCurrentPlayer().getName() + " folds.\n");
@@ -110,8 +117,8 @@ public class PokerRunner {
     }
 
     public void dealFlop() {
-        lg.log("The dealer will now deal the FLOP. Hit enter to view.");
-        sc.nextLine();
+        lg.log("The dealer will now deal the FLOP.");
+        String next = sc.nextLine();
         game.getDealer().dealTable(3, game.getTable());
         lg.log("THE FLOP: " + cd.displayHand(game.getTable()) + "\n");
         lg.log("Hit enter to continue.");
@@ -119,7 +126,7 @@ public class PokerRunner {
     }
 
     public void dealTurn() {
-        lg.log("The dealer will now deal the TURN. Hit enter to view.");
+        lg.log("The dealer will now deal the TURN.");
         sc.nextLine();
         game.getDealer().dealTable(1, game.getTable());
         lg.log("THE TURN: " + cd.displayHand(game.getTable()) + "\n");
@@ -128,7 +135,7 @@ public class PokerRunner {
     }
 
     public void dealRiver() {
-        lg.log("The dealer will now deal the RIVER. Hit enter to view.");
+        lg.log("The dealer will now deal the RIVER.");
         sc.nextLine();
         game.getDealer().dealTable(1, game.getTable());
         lg.log("THE RIVER: "+cd.displayHand(game.getTable())+"\n");
