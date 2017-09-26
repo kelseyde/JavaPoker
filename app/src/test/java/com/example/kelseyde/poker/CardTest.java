@@ -16,10 +16,12 @@ import static org.junit.Assert.*;
 public class CardTest {
 
     Card card;
+    CardDisplayer cd;
 
     @Before
     public void before() {
         card = new Card(SPADES, RankType.ACE);
+        cd = new CardDisplayer();
     }
 
     @Test
@@ -50,18 +52,12 @@ public class CardTest {
     }
 
     @Test
-    public void testIcon() {
-        System.out.println(card.icon());
-        assertEquals("\033[0mA\u2660\033[0m", card.icon());
-    }
-
-    @Test
     public void testDisplayHand() {
         Card card1 = new Card(SuitType.CLUBS, RankType.EIGHT);
         Card card2 = new Card(SuitType.HEARTS, RankType.EIGHT);
         ArrayList<Card> hand = new ArrayList<>();
         Collections.addAll(hand, card1, card2);
-        assertEquals("[ \033[0m8\u2663\033[0m \033[0;31m8\u2665\033[0m ]", CardDisplayer.displayHand(hand));
+        assertEquals("[ \033[0m8\u2663\033[0m \033[0;31m8\u2665\033[0m ]", cd.displayHand(hand));
 
     }
 

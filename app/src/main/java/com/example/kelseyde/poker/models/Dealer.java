@@ -11,8 +11,6 @@ public class Dealer implements Dealing {
         this.deck = new Deck();
     }
 
-    //getters and setters
-
     public Deck getDeck() {
         return deck;
     }

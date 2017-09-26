@@ -3,6 +3,7 @@ package com.example.kelseyde.poker;
 import com.example.kelseyde.poker.models.Dealer;
 import com.example.kelseyde.poker.models.Deck;
 import com.example.kelseyde.poker.models.Player;
+import com.example.kelseyde.poker.models.PokerGame;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,9 +20,11 @@ public class DealerTest {
     Player player2;
     Player player3;
     ArrayList<Player> players;
+    PokerGame game;
 
     @Before
     public void before() {
+        game = new PokerGame();
         dealer = new Dealer();
         deck = new Deck();
         dealer.setDeck(deck);
@@ -60,6 +63,12 @@ public class DealerTest {
         assertEquals(10, player1.getHand().size());
         assertEquals(10, player2.getHand().size());
         assertEquals(10, player3.getHand().size());
+    }
+
+    @Test
+    public void testDealTableCards() {
+        dealer.dealTable(3, game.getTable());
+        assertEquals(3, game.getTable().size());
     }
 
 }

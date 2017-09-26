@@ -52,7 +52,7 @@ public class CardDisplayer {
         return rankIcon;
     }
 
-    public String icon(Card card) {
+    public String displayCard(Card card) {
         String colour = setColour(card);
         String rankIcon = setRankIcon(card);
         String suitIcon = setSuitIcon(card);
@@ -61,10 +61,10 @@ public class CardDisplayer {
         return icon;
     }
 
-    public static String displayHand(ArrayList<Card> hand) {
+    public String displayHand(ArrayList<Card> hand) {
         String display = "[ ";
         for (Card card : hand) {
-            display = display + card.icon() + " ";
+            display = display + displayCard(card) + " ";
         }
         display = display + "]";
         return display;

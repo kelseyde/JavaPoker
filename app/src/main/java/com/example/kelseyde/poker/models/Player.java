@@ -1,8 +1,6 @@
 package com.example.kelseyde.poker.models;
 
-
 import com.example.kelseyde.poker.models.Card;
-
 import java.util.ArrayList;
 
 public class Player {
@@ -10,16 +8,12 @@ public class Player {
     private String name;
     private ArrayList<Card> hand;
     private Integer chips;
-    private Integer stake;
 
     public Player(String name) {
         this.name = name;
         this.hand = new ArrayList<Card>();
         this.chips = 100;
-        this.stake = 0;
     }
-
-    //getters and setters
 
     public String getName() {
         return name;
@@ -45,20 +39,8 @@ public class Player {
         this.chips = chips;
     }
 
-    public Integer getStake() {
-        return stake;
-    }
-
-    public void setStake(Integer stake) {
-        this.stake = stake;
-    }
-
-    //methods
-
     public void bet(Integer bet) {
-        stake += bet;
         chips -= bet;
     }
-
 
 }

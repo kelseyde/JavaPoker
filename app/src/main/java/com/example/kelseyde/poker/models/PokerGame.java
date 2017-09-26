@@ -9,7 +9,7 @@ public class PokerGame {
     private Dealing dealer;
     private Player currentPlayer;
     private ArrayList<Card> table;
-    private HandEvaluating evaluator;
+    private PokerHandEvaluator evaluator;
     private Logger logger;
     private int pot;
 
@@ -73,7 +73,36 @@ public class PokerGame {
         return table;
     }
 
-    public void setTable(ArrayList<Card> table) {
-        this.table = table;
+    public ArrayList<ArrayList<Card>> getPlayerHands() {
+        ArrayList<ArrayList<Card>> hands = new ArrayList<>();
+        for (Player player : players) {
+            hands.add(player.getHand());
+        }
+        return hands;
     }
+
+    public ArrayList<Card> combineHandAndTable(Player player) {
+        ArrayList<Card> handToEvaluate = new ArrayList<>(table);
+        handToEvaluate.addAll(player.getHand());
+        return handToEvaluate;
+    }
+
+    public Player getWinner() {
+        //prepare ArrayList of player's hands combined with table cards
+        ArrayList<ArrayList<Card>> handsWithTable = new ArrayList<>();
+        for (Player player : getPlayers()) {
+            ArrayList<Card> handWithTable = combineHandAndTable(player);
+            handsWithTable.add(handWithTable);
+        }
+        //get winning hand, and find the player whose hand it is
+        ArrayList<Card> winningHand = evaluator.getWinningHand(handsWithTable);
+        Player winner = null;
+        for (Player player : players) {
+            if (combineHandAndTable(player).equals(winningHand)) {
+                winner = player;
+            }
+        }
+        return winner;
+    }
+
 }

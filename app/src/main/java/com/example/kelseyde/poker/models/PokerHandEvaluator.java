@@ -353,13 +353,6 @@ public class PokerHandEvaluator implements HandEvaluating {
             int score = evaluateHand(hands.get(i));
             if (score < winningScore) { hands.remove(i); }
         }
-
-        //if there is a draw, determine which hand the players have and find highest card
-        if (hands.size() > 1) {
-            switch (winningScore) {
-                case 10:
-            }
-        }
         //if there is a draw, compare highest card
         if (hands.size() > 1) {
             winningScore = 0;

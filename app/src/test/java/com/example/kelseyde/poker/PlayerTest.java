@@ -2,12 +2,9 @@ package com.example.kelseyde.poker;
 
 import com.example.kelseyde.poker.models.Card;
 import com.example.kelseyde.poker.models.Player;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 public class PlayerTest {
@@ -52,15 +49,21 @@ public class PlayerTest {
         assertEquals(0, player.getHand().size());
     }
 
-//    @Test
-//    public void testGetChips() {
-//        assertEquals(100, player.getChips());
-//    }
-//
-//    @Test
-//    public void testSetChips() {
-//        player.setChips(101);
-//        assertEquals(101, player.getChips());
-//    }
+    @Test
+    public void testGetChips() {
+        assertEquals((Integer) 100, player.getChips());
+    }
+
+    @Test
+    public void testSetChips() {
+        player.setChips(101);
+        assertEquals((Integer) 101, player.getChips());
+    }
+
+    @Test
+    public void testBet() {
+        player.bet(10);
+        assertEquals((Integer) 90, player.getChips());
+    }
 
 }
