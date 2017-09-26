@@ -13,5 +13,12 @@ public class ConsoleLogger implements Logger {
                 "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 
+    public void pause(int seconds) {
+        try{
+            Thread.sleep(seconds * 1000);
+        }catch(InterruptedException ex){
+        }
+    }
+
 
 }
