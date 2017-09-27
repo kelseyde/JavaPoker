@@ -11,9 +11,9 @@ public class PokerConsole {
     Logger lg = new ConsoleLogger();
     CardDisplayer cd = new CardDisplayer();
 
-    int bet1 = 0;
-    int bet2 = 0;
-    int bet3 = 0;
+    private int bet1;
+    private int bet2;
+    private int bet3;
 
     Card ace1 = new Card(SuitType.CLUBS, RankType.ACE);
     Card ace2 = new Card(SuitType.DIAMONDS, RankType.ACE);

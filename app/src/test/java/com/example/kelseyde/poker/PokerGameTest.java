@@ -22,9 +22,6 @@ import static org.junit.Assert.*;
 public class PokerGameTest {
 
     private PokerGame game;
-    private Dealer dealer;
-    private HandEvaluating evaluator;
-    private Logger logger;
     private Player player1;
     private Player player2;
 
@@ -77,9 +74,14 @@ public class PokerGameTest {
     }
 
     @Test
-    public void addToPot() {
+    public void testAddToPot() {
         game.addToPot(100);
         assertEquals(100, game.getPot());
+    }
+
+    @Test
+    public void testGetEvaluator() {
+        assertEquals("PokerHandEvaluator", game.getEvaluator().getClass().getSimpleName().toString());
     }
 
     @Test
