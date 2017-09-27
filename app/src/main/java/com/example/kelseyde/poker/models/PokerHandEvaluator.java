@@ -350,7 +350,7 @@ public class PokerHandEvaluator implements HandEvaluating {
             }
         }
         //eliminate any hands below winning score
-        for (int i=0; i < (hands.size() - 1); i++) {
+        for (int i=0; i < (hands.size()); i++) {
             int score = evaluateHand(hands.get(i));
             if (score < winningScore) { hands.remove(i); }
         }
