@@ -10,7 +10,6 @@ public class PokerConsole {
     Scanner sc = new Scanner(System.in);
     Logger lg = new ConsoleLogger();
     CardDisplayer cd = new CardDisplayer();
-    PokerHandEvaluator evaluator = new PokerHandEvaluator();
 
     int bet1 = 0;
     int bet2 = 0;
@@ -23,7 +22,7 @@ public class PokerConsole {
 
     public String printHand(ArrayList<Card> hand) {
         String result = null;
-        switch (evaluator.evaluateHand(hand)) {
+        switch (game.getEvaluator().evaluateHand(hand)) {
             case 10 : result = "ROYAL FLUSH"; break;
             case 9 : result = "STRAIGHT FLUSH"; break;
             case 8 : result = "FOUR OF A KIND"; break;
@@ -103,7 +102,7 @@ public class PokerConsole {
             game.getCurrentPlayer().bet(bet1);
             game.nextPlayer();
         } else {
-            lg.log("Incorrect input!\n");
+            lg.log("\nIncorrect input!\n");
             firstBet();
         }
     }
@@ -120,7 +119,7 @@ public class PokerConsole {
             bet2 = Integer.parseInt(choice);
             game.getCurrentPlayer().bet(bet2);
         } else {
-            lg.log("Incorrect input!");
+            lg.log("\nIncorrect input!\n");
             secondBet();
         }
         game.nextPlayer();
@@ -148,6 +147,9 @@ public class PokerConsole {
                     lg.log("\n" + game.getCurrentPlayer().getName() + " has called! On to the next round.");
                     lg.log("\n");
                 }
+            } else {
+                lg.log("\nIncorrect input!");
+                thirdBet();
             }
         } else if (bet2 == bet1) {
             game.nextPlayer();

@@ -71,6 +71,10 @@ public class PokerGame {
         return table;
     }
 
+    public PokerHandEvaluator getEvaluator() {
+        return evaluator;
+    }
+
     public void clearTable() {
         table.clear();
     }
