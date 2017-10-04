@@ -1,5 +1,6 @@
 # JavaPoker
 A model of the card game poker in Java, with a focus on strong OO design and the SOLID principles.
+![poker_welcome](/poker/poker_welcome.png)
 
 # Outline
 I developed this program as an individual assignment for CodeClan's 16-week intro to software development course. I decided to try my hand at writing a poker engine because I was interested in the logic involved in evaluating poker hands, and because I wanted to focus on refining my OO design skills. 
