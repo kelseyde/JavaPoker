@@ -1,5 +1,6 @@
 # JavaPoker
 A model of the card game poker in Java, with a focus on strong OO design and the SOLID principles.
+
 ![poker_welcome](poker_welcome.png)
 
 # Outline
