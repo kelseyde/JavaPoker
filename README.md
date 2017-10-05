@@ -16,7 +16,8 @@ I developed this program as an individual assignment for CodeClan's 16-week intr
 # Poker Hand Evaluator
 (image below)
 
-The PokerHandEvaluator class is designed to take in an ArrayList of Cards (the Player's hand), and determine its poker score. 
+The PokerHandEvaluator class is designed to take in an ArrayList of Cards (the Player's hand), and determine its poker score. The methods for checking a particular poker hand (straight, flush, and so on) work in a similar way. First, it creates a HashMap with either the Rank or Suit Enums as keys, and Integers as values, set at 0. Then it iterates through the Cards in the Hand, and increments the relevant value in the HashMap. This results in a HashMap documenting how many of each rank or suit there are. 
 
+The next step loops through this HashMap, and checks for the relevant hand. In the example below we are looking for a straight; so, we check whether there are Cards in the Hand of five consecutive ranks. This includes a separate if-statement for a low-ace straight. 
 
 ![poker_code](poker_code.png)
