@@ -35,3 +35,4 @@ The program allows players to place bets in the console as the table cards are d
 ...and then declares a winner, implementing the PokerHandEvaluator logic.
 
 ![poker_showdown](poker_showdown.png)
+
