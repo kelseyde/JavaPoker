@@ -30,9 +30,15 @@ The next step loops through this HashMap, and checks for the relevant hand. In t
 
 The program allows players to place bets in the console as the table cards are dealt...
 
+...
+
 ![poker_bet](poker_bet.png)
 
+...
+
 ...and then declares a winner, implementing the PokerHandEvaluator logic.
+
+...
 
 ![poker_showdown](poker_showdown.png)
 
