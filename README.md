@@ -14,9 +14,9 @@ I developed this program as an individual assignment for CodeClan's 16-week intr
 - A command-line interface, where two players can take part in rounds of betting and dealing. 
 
 # Poker Hand Evaluator
+(image below)
 
-![poker_code](poker_code.png =100x20)
-
-The PokerHandEvaluator class is designed to take in an ArrayList of Cards (the Player's hand), and determine what poker hand they have. 
+The PokerHandEvaluator class is designed to take in an ArrayList of Cards (the Player's hand), and determine its poker score. 
 
 
+![poker_code](poker_code.png)
