@@ -13,6 +13,10 @@ I developed this program as an individual assignment for CodeClan's 16-week intr
   the only classes that are poker specific are the hand-evaluator, the game class, and the console runner class. 
 - A command-line interface, where two players can take part in rounds of betting and dealing. 
 
+Class diagram:
+
+![poker_class_diagram](poker_class_diagram.png)
+
 # Poker Hand Evaluator
 (image below)
 
